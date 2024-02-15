@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+var counter = 0;
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -27,7 +29,10 @@ class HomeScreen extends StatelessWidget {
         )),
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         floatingActionButton: FloatingActionButton(
-          onPressed: () => {},
+          onPressed: () {
+            counter++;
+            print("$counter");
+          },
           elevation: 10,
           child: const Icon(Icons.add),
         ));
