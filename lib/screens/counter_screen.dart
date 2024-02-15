@@ -11,6 +11,22 @@ class CounterScreen extends StatefulWidget {
 
 class _CounterScreenState extends State<CounterScreen> {
   int counter = 10;
+
+  increase() {
+    counter++;
+    setState(() {});
+  }
+
+  decrease() {
+    counter--;
+    setState(() {});
+  }
+
+  reset() {
+    counter = 0;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,41 +49,46 @@ class _CounterScreenState extends State<CounterScreen> {
           ],
         )),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FloatingActionButton(
-              onPressed: () {
-                counter--;
-                if (counter < -10) {
-                  counter = -10;
-                }
-                setState(() {});
-              },
-              elevation: 10,
-              child: const Icon(Icons.phone_missed_outlined),
-            ),
-            const SizedBox(width: 20),
-            // Reset counter
-            FloatingActionButton(
-              onPressed: () {
-                counter = 0;
-                setState(() {});
-              },
-              elevation: 10,
-              child: const Icon(Icons.restore),
-            ),
-            const SizedBox(width: 20),
-            // Plus 1
-            FloatingActionButton(
-              onPressed: () {
-                counter++;
-                setState(() {});
-              },
-              elevation: 10,
-              child: const Icon(Icons.plus_one),
-            ),
-          ],
-        ));
+        floatingActionButton: FloatinButtonsActions(
+            plusOne: increase, minusOne: decrease, resetCounter: reset));
+  }
+}
+
+class FloatinButtonsActions extends StatelessWidget {
+  final Function plusOne;
+  final Function minusOne;
+  final Function resetCounter;
+
+  const FloatinButtonsActions({
+    super.key,
+    required this.plusOne,
+    required this.minusOne,
+    required this.resetCounter,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        FloatingActionButton(
+          elevation: 10,
+          child: const Icon(Icons.exposure_minus_1_outlined),
+          onPressed: () => minusOne(),
+        ),
+        // Reset counter
+        FloatingActionButton(
+          onPressed: () => resetCounter(),
+          elevation: 10,
+          child: const Icon(Icons.exposure_zero),
+        ),
+        // Plus 1
+        FloatingActionButton(
+          onPressed: () => plusOne(),
+          elevation: 10,
+          child: const Icon(Icons.plus_one),
+        ),
+      ],
+    );
   }
 }
