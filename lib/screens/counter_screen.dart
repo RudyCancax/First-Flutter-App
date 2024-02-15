@@ -29,17 +29,45 @@ class _CounterScreenState extends State<CounterScreen> {
             Text(
               "$counter",
               style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
-            )
+            ),
           ],
         )),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            counter++;
-            setState(() {});
-          },
-          elevation: 10,
-          child: const Icon(Icons.add),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FloatingActionButton(
+              onPressed: () {
+                counter--;
+                if (counter < -10) {
+                  counter = -10;
+                }
+                setState(() {});
+              },
+              elevation: 10,
+              child: const Icon(Icons.phone_missed_outlined),
+            ),
+            const SizedBox(width: 20),
+            // Reset counter
+            FloatingActionButton(
+              onPressed: () {
+                counter = 0;
+                setState(() {});
+              },
+              elevation: 10,
+              child: const Icon(Icons.restore),
+            ),
+            const SizedBox(width: 20),
+            // Plus 1
+            FloatingActionButton(
+              onPressed: () {
+                counter++;
+                setState(() {});
+              },
+              elevation: 10,
+              child: const Icon(Icons.plus_one),
+            ),
+          ],
         ));
   }
 }
